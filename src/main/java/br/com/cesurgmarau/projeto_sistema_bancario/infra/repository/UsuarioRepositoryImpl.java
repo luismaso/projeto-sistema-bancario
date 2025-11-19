@@ -17,15 +17,21 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
     private int contadorId = 1;
 
     @Override
-    public void criarUsuario(Usuario usuario) {
-        boolean cpfExiste = usuarios.stream()
-                .anyMatch(u -> u.getCpf().equals(usuario.getCpf()));
+    public void criarUsuario(Usuario usuario) throws Exception {
+        boolean cpfExiste = false;
 
-        if (cpfExiste) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "CPF já cadastrado: " + usuario.getCpf());
+        for (int i = 0; i < usuarios.size(); i++) {
+            if (usuario.getCpf().equals(usuarios.get(i).getCpf())){
+                cpfExiste = !cpfExiste;
+            }
         }
-        usuario.setIdUsuario(contadorId++);
-        usuarios.add(usuario);
+
+        if(cpfExiste){
+            throw new Exception("Usuário já cadastrado");
+        }else{
+            usuario.setIdUsuario(contadorId++);
+            usuarios.add(usuario);
+        }
     }
 
     @Override

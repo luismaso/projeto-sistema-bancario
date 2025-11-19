@@ -2,10 +2,10 @@ package br.com.cesurgmarau.projeto_sistema_bancario.core.domain.entity;
 
 
 public class Usuario {
-private Integer idUsuario;
-private String nome;
-private String sobrenome;
-private String cpf;
+    private Integer idUsuario = 0;
+    private String nome;
+    private String sobrenome;
+    private String cpf;
 
     public Usuario(Integer idUsuario, String nome, String sobrenome, String cpf) {
         this.idUsuario = idUsuario;

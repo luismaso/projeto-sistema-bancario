@@ -15,7 +15,7 @@ public class UsuarioUseCaseImpl implements UsuarioUseCase {
 
 
     @Override
-    public void criarUsuario(Usuario usuario) {
+    public void criarUsuario(Usuario usuario) throws Exception {
         usuarioRepository.criarUsuario(usuario);
     }
 

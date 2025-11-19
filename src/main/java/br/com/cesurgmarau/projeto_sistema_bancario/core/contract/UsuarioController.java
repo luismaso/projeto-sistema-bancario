@@ -1,11 +1,12 @@
 package br.com.cesurgmarau.projeto_sistema_bancario.core.contract;
 
 import br.com.cesurgmarau.projeto_sistema_bancario.core.domain.entity.Usuario;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface UsuarioController {
-    void criarUsuario(Usuario usuario);
+    ResponseEntity criarUsuario(Usuario usuario);
 
     void deletarUsuario(Integer idUsuario);
 

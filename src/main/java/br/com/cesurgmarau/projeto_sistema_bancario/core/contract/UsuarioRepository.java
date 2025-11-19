@@ -5,7 +5,7 @@ import br.com.cesurgmarau.projeto_sistema_bancario.core.domain.entity.Usuario;
 import java.util.List;
 
 public interface UsuarioRepository {
-    void criarUsuario(Usuario usuario);
+    void criarUsuario(Usuario usuario) throws Exception;
 
     void deletarUsuario(Integer idUsuario);
 
