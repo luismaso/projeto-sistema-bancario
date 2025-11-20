@@ -2,10 +2,10 @@ package br.com.cesurgmarau.projeto_sistema_bancario.core.domain.entity;
 
 public class Conta {
     private Integer idConta = 0;
-    private Integer saldoConta = 0;
+    private int saldoConta = 0;
     private String numeroConta;
 
-    public Conta(Integer idConta, Integer saldoConta, String numeroConta) {
+    public Conta(Integer idConta, int saldoConta, String numeroConta) {
         this.idConta = idConta;
         this.saldoConta = saldoConta;
         this.numeroConta = numeroConta;
@@ -23,7 +23,7 @@ public class Conta {
         return saldoConta;
     }
 
-    public void setSaldoConta(Integer saldoConta) {
+    public void setSaldoConta(int saldoConta) {
         this.saldoConta = saldoConta;
     }
 

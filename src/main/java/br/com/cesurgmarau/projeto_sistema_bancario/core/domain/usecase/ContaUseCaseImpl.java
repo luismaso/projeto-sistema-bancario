@@ -28,6 +28,7 @@ public class ContaUseCaseImpl implements ContaUseCase {
         return contaRepository.listarConta();
     }
 
+
     @Override
     public void atualizarConta(Integer idConta, Conta novaConta) {
         contaRepository.atualizarConta(idConta, novaConta);

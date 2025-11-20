@@ -2,7 +2,10 @@ package br.com.cesurgmarau.projeto_sistema_bancario.infra.repository;
 
 import br.com.cesurgmarau.projeto_sistema_bancario.core.contract.ContaRepository;
 import br.com.cesurgmarau.projeto_sistema_bancario.core.domain.entity.Conta;
+import br.com.cesurgmarau.projeto_sistema_bancario.core.domain.model.Error;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +20,7 @@ public class ContaRepositoryImpl implements ContaRepository {
 
 
     @Override
-    public void criarConta(Conta conta) throws Exception {
+    public ResponseEntity<Error> criarConta(Conta conta) throws Exception {
         boolean NumeroContaExiste = false;
 
         for (int i = 0; i < contas.size(); i++) {
@@ -29,9 +32,9 @@ public class ContaRepositoryImpl implements ContaRepository {
             throw new Exception("Número de conta já existe");
         }else{
             conta.setIdConta(contadorId++);
-            conta.setSaldoConta(0);
             contas.add(conta);
         }
+        return null;
     }
 
     @Override

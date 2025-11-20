@@ -48,7 +48,7 @@ public class ContaControllerImpl implements ContaController {
 
     @PutMapping("/{idConta}")
     @Override
-    public void atualizarConta(Integer idConta, Conta novaConta) {
+    public void atualizarConta(@PathVariable Integer idConta, @RequestBody Conta novaConta) {
         contaUseCase.atualizarConta(idConta, novaConta);
     }
 }
