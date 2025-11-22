@@ -5,11 +5,18 @@ meta {
 }
 
 delete {
-  url: 
-  body: none
+  url: http://localhost:8080/banco/1
+  body: json
   auth: inherit
+}
+
+body:json {
+  {
+    "agencia": "1",
+  }
 }
 
 settings {
   encodeUrl: true
+  timeout: 0
 }

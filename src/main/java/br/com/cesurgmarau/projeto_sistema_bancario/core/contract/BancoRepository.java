@@ -9,4 +9,5 @@ public interface BancoRepository {
     void deletarBanco(Integer agencia);
     void atualizarBanco(Integer agencia, Banco novoBanco);
     List<Banco> listarBancos();
+    Banco buscarBancoPorAgencia(Integer agencia);
 }

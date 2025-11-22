@@ -5,10 +5,35 @@ public class Conta {
     private int saldoConta = 0;
     private String numeroConta;
 
-    public Conta(Integer idConta, int saldoConta, String numeroConta) {
+    //novos
+    private Banco banco;
+    private Usuario usuario;
+
+    public Conta() {
+    }
+
+    public Conta(Integer idConta, int saldoConta, String numeroConta, Banco banco, Usuario usuario) {
         this.idConta = idConta;
         this.saldoConta = saldoConta;
         this.numeroConta = numeroConta;
+        this.banco = banco;
+        this.usuario = usuario;
+    }
+
+    public Banco getBanco() {
+        return banco;
+    }
+
+    public void setBanco(Banco banco) {
+        this.banco = banco;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public Integer getIdConta() {

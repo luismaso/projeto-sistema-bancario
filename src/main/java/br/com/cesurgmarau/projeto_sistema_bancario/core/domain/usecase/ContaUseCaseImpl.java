@@ -1,8 +1,12 @@
 package br.com.cesurgmarau.projeto_sistema_bancario.core.domain.usecase;
 
+import br.com.cesurgmarau.projeto_sistema_bancario.core.contract.BancoRepository;
 import br.com.cesurgmarau.projeto_sistema_bancario.core.contract.ContaRepository;
 import br.com.cesurgmarau.projeto_sistema_bancario.core.contract.ContaUseCase;
+import br.com.cesurgmarau.projeto_sistema_bancario.core.contract.UsuarioRepository;
+import br.com.cesurgmarau.projeto_sistema_bancario.core.domain.entity.Banco;
 import br.com.cesurgmarau.projeto_sistema_bancario.core.domain.entity.Conta;
+import br.com.cesurgmarau.projeto_sistema_bancario.core.domain.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +15,30 @@ import java.util.List;
 @Service
 public class ContaUseCaseImpl implements ContaUseCase {
     @Autowired
-    ContaRepository contaRepository;
+    private final ContaRepository contaRepository;
+    private final BancoRepository bancoRepository;
+    private final UsuarioRepository usuarioRepository;
+
+    public ContaUseCaseImpl(ContaRepository contaRepository, BancoRepository bancoRepository, UsuarioRepository usuarioRepository) {
+        this.contaRepository = contaRepository;
+        this.bancoRepository = bancoRepository;
+        this.usuarioRepository = usuarioRepository;
+    }
+
 
     @Override
-    public void criarConta(Conta conta) throws Exception {
-        contaRepository.criarConta(conta);
+    public void criarConta(String numeroConta, int saldoInicial, Integer agenciaBanco, String cpfUsuario) throws Exception {
+        Banco banco = bancoRepository.buscarBancoPorAgencia(agenciaBanco);
+        Usuario usuario = usuarioRepository.buscarUsuarioPorCpf(cpfUsuario);
+        Conta novaConta = new Conta();
+        novaConta.setNumeroConta(numeroConta);
+        novaConta.setSaldoConta(saldoInicial);
+
+        novaConta.setBanco(banco);
+        novaConta.setUsuario(usuario);
+
+        contaRepository.criarConta(novaConta);
+
     }
 
     @Override

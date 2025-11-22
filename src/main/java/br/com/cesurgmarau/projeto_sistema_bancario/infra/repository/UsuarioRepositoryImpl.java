@@ -59,4 +59,14 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
             }
         }
     }
+
+    @Override
+    public Usuario buscarUsuarioPorCpf(String cpf) {
+        for(Usuario u : usuarios){
+            if(u.getCpf().equals(cpf)){
+                return u;
+            }
+        }
+        return null;
+    }
 }

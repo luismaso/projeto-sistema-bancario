@@ -15,8 +15,14 @@ public class BancoRepositoryImpl implements BancoRepository {
 
     @Override
     public void criarBanco(Banco banco) throws Exception {
-            banco.setAgencia(contadorAgencia++);
-            bancos.add(banco);
+        if (banco.getAgencia() == null) {
+            throw new Exception("O número da agência deve ser informado.");
+        }
+
+        if (buscarBancoPorAgencia(banco.getAgencia()) != null) {
+            throw new Exception("Agência já cadastrada.");
+        }
+        bancos.add(banco);
     }
 
 
@@ -46,4 +52,17 @@ public class BancoRepositoryImpl implements BancoRepository {
     public List<Banco> listarBancos() {
         return new ArrayList<>(bancos);
     }
+
+    @Override
+    public Banco buscarBancoPorAgencia(Integer agencia) {
+        for (Banco b : bancos){
+            if(b.getAgencia().equals(agencia)){
+                return b;
+            }
+        }
+
+        return null;
+    }
+
+
 }

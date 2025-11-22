@@ -12,4 +12,6 @@ public interface UsuarioRepository {
     List<Usuario> listarUsuario();
 
     void atualizarUsuario(Integer idUsuario, Usuario novoUsuario);
+
+    Usuario buscarUsuarioPorCpf(String cpf);
 }
