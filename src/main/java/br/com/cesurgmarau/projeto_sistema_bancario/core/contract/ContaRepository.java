@@ -7,11 +7,13 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface ContaRepository {
-    ResponseEntity<Error> criarConta(Conta conta) throws Exception;
+    void criarConta(Conta conta) throws Exception;
 
     void deletarConta(Integer IdConta);
 
     List<Conta> listarConta();
 
     void atualizarConta(Integer idConta, Conta novaConta);
+
+    Conta buscarContaPorNumero(String numeroConta);
 }

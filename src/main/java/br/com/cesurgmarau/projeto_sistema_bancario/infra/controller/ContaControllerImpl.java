@@ -5,6 +5,7 @@
     import br.com.cesurgmarau.projeto_sistema_bancario.core.contract.ContaUseCase;
     import br.com.cesurgmarau.projeto_sistema_bancario.core.domain.entity.Conta;
     import br.com.cesurgmarau.projeto_sistema_bancario.infra.request.ContaRequest;
+    import br.com.cesurgmarau.projeto_sistema_bancario.infra.request.DepositoRequest;
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.http.HttpStatus;
     import org.springframework.http.ResponseEntity;
@@ -27,8 +28,10 @@
                 contaUseCase.criarConta(
                         request.getNumeroConta(),
                         request.getSaldoInicial(),
+                        request.getTipoConta(),
                         request.getAgenciaBanco(),
                         request.getCpfUsuario()
+
                 );
                 return ResponseEntity
                         .status(HttpStatus.CREATED)
@@ -58,5 +61,19 @@
         @Override
         public void atualizarConta(@PathVariable Integer idConta, @RequestBody Conta novaConta) {
             contaUseCase.atualizarConta(idConta, novaConta);
+        }
+
+        @PostMapping("/depositar")
+        public ResponseEntity<?> depositar(@RequestBody DepositoRequest request){
+            try{
+                contaUseCase.depositar(request.getNumeroConta(), request.getValor());
+                return ResponseEntity.ok("Deposito realizado");
+            } catch (Exception e) {
+                Error erro = new Error();
+                erro.setMessage(e.getMessage());
+                return ResponseEntity
+                        .status(HttpStatus.BAD_REQUEST)
+                        .body(erro);
+            }
         }
     }

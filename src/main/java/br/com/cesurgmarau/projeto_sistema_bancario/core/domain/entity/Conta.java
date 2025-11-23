@@ -4,12 +4,21 @@ public class Conta {
     private Integer idConta = 0;
     private int saldoConta = 0;
     private String numeroConta;
+    private String tipoConta;
 
     //novos
     private Banco banco;
     private Usuario usuario;
 
     public Conta() {
+    }
+
+    public String getTipoConta() {
+        return tipoConta;
+    }
+
+    public void setTipoConta(String tipoConta) {
+        this.tipoConta = tipoConta;
     }
 
     public Conta(Integer idConta, int saldoConta, String numeroConta, Banco banco, Usuario usuario) {

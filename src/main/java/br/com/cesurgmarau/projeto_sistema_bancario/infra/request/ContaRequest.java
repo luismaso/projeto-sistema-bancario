@@ -5,15 +5,25 @@ public class ContaRequest {
     private int saldoInicial;
     private Integer agenciaBanco;
     private String cpfUsuario;
+    private String tipoConta;
 
     public ContaRequest() {
     }
 
-    public ContaRequest(String numeroConta, int saldoInicial, Integer agenciaBanco, String cpfUsuario) {
+    public ContaRequest(String numeroConta, int saldoInicial, Integer agenciaBanco, String cpfUsuario, String tipoConta) {
         this.numeroConta = numeroConta;
         this.saldoInicial = saldoInicial;
         this.agenciaBanco = agenciaBanco;
         this.cpfUsuario = cpfUsuario;
+        this.tipoConta = tipoConta;
+    }
+
+    public String getTipoConta() {
+        return tipoConta;
+    }
+
+    public void setTipoConta(String tipoConta) {
+        this.tipoConta = tipoConta;
     }
 
     public String getNumeroConta() {

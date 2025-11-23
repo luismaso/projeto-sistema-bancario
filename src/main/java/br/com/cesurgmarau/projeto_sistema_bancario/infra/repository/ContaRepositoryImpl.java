@@ -16,36 +16,34 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class ContaRepositoryImpl implements ContaRepository {
     private final List<Conta> contas = new ArrayList<>();
     private int contadorId = 1;
-    
 
 
     @Override
-    public ResponseEntity<Error> criarConta(Conta conta) throws Exception {
+    public void criarConta(Conta conta) throws Exception {
         boolean NumeroContaExiste = false;
 
         for (int i = 0; i < contas.size(); i++) {
-            if(conta.getNumeroConta().equals(contas.get(i).getNumeroConta())){
+            if (conta.getNumeroConta().equals(contas.get(i).getNumeroConta())) {
                 NumeroContaExiste = !NumeroContaExiste;
             }
         }
-        if (NumeroContaExiste){
+        if (NumeroContaExiste) {
             throw new Exception("Número de conta já existe");
-        }else{
+        } else {
             conta.setIdConta(contadorId++);
             contas.add(conta);
         }
-        return null;
     }
 
     @Override
     public void deletarConta(Integer idConta) {
-        for(Conta u : new ArrayList<>(contas)){
-            if(u.getIdConta().equals(idConta)){
+        for (Conta u : new ArrayList<>(contas)) {
+            if (u.getIdConta().equals(idConta)) {
                 contas.remove(u);
                 break;
             }
         }
-        
+
     }
 
     @Override
@@ -56,11 +54,22 @@ public class ContaRepositoryImpl implements ContaRepository {
     @Override
     public void atualizarConta(Integer idConta, Conta novaConta) {
         for (int i = 0; i < contas.size(); i++) {
-            if(contas.get(i).getIdConta().equals(idConta)){
+            if (contas.get(i).getIdConta().equals(idConta)) {
                 novaConta.setIdConta(idConta);
                 contas.set(i, novaConta);
                 break;
             }
         }
+    }
+
+    @Override
+    public Conta buscarContaPorNumero(String numeroConta) {
+        for (Conta con : contas) {
+            if (con.getNumeroConta().equals(numeroConta)) {
+                return con;
+            }
+        }
+        return null;
+
     }
 }

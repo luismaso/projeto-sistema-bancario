@@ -8,6 +8,7 @@ import br.com.cesurgmarau.projeto_sistema_bancario.core.domain.entity.Banco;
 import br.com.cesurgmarau.projeto_sistema_bancario.core.domain.entity.Conta;
 import br.com.cesurgmarau.projeto_sistema_bancario.core.domain.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,17 +28,19 @@ public class ContaUseCaseImpl implements ContaUseCase {
 
 
     @Override
-    public void criarConta(String numeroConta, int saldoInicial, Integer agenciaBanco, String cpfUsuario) throws Exception {
+    public Conta criarConta(String numeroConta, int saldoInicial, String tipoConta, Integer agenciaBanco, String cpfUsuario) throws Exception {
         Banco banco = bancoRepository.buscarBancoPorAgencia(agenciaBanco);
         Usuario usuario = usuarioRepository.buscarUsuarioPorCpf(cpfUsuario);
         Conta novaConta = new Conta();
         novaConta.setNumeroConta(numeroConta);
         novaConta.setSaldoConta(saldoInicial);
-
+        novaConta.setTipoConta(tipoConta);
         novaConta.setBanco(banco);
         novaConta.setUsuario(usuario);
 
         contaRepository.criarConta(novaConta);
+
+        return novaConta;
 
     }
 
@@ -56,4 +59,22 @@ public class ContaUseCaseImpl implements ContaUseCase {
     public void atualizarConta(Integer idConta, Conta novaConta) {
         contaRepository.atualizarConta(idConta, novaConta);
     }
+
+    @Override
+    public void depositar(String numeroConta, int valor) throws Exception {
+        Conta conta = contaRepository.buscarContaPorNumero(numeroConta);
+        if(conta == null){
+            throw new Exception("Conta não encontrada");
+        }
+        if(valor<=0){
+            throw new Exception("O valor para deposito deve ser positivo");
+        }
+
+        int novoSaldo = conta.getSaldoConta() + valor;
+        conta.setSaldoConta(novoSaldo);
+
+        contaRepository.atualizarConta(conta.getIdConta(), conta);
+    }
+
+
 }

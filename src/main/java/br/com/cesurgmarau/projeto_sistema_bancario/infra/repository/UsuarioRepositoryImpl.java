@@ -19,12 +19,17 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
     @Override
     public void criarUsuario(Usuario usuario) throws Exception {
         boolean cpfExiste = false;
+        if (usuario.getCpf() == null) {
+            throw new Exception("O CPF é obrigatório");
+        }
 
         for (int i = 0; i < usuarios.size(); i++) {
-            if (usuario.getCpf().equals(usuarios.get(i).getCpf())){
-                cpfExiste = !cpfExiste;
+            Usuario usuarioExistente = usuarios.get(i);
+            if(usuarioExistente.getCpf() != null && usuario.getCpf().equals(usuarioExistente.getCpf())){
+                cpfExiste =! cpfExiste;
             }
         }
+
 
         if(cpfExiste){
             throw new Exception("Usuário já cadastrado");

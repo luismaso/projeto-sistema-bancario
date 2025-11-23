@@ -1,15 +1,18 @@
 package br.com.cesurgmarau.projeto_sistema_bancario.core.contract;
 
 import br.com.cesurgmarau.projeto_sistema_bancario.core.domain.entity.Conta;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface ContaUseCase {
-    void criarConta(String numeroConta, int saldoInicial, Integer agenciaBanco, String cpfUsuario) throws Exception;
+    Conta criarConta(String numeroConta, int saldoInicial, String tipoConta, Integer agenciaBanco, String cpfUsuario) throws Exception;
 
     void deletarConta(Integer IdConta);
 
     List<Conta> listarConta();
 
     void atualizarConta(Integer idConta, Conta novaConta);
+
+    void depositar(String numeroConta, int valor) throws Exception;
 }
