@@ -6,6 +6,7 @@
     import br.com.cesurgmarau.projeto_sistema_bancario.core.domain.entity.Conta;
     import br.com.cesurgmarau.projeto_sistema_bancario.infra.request.ContaRequest;
     import br.com.cesurgmarau.projeto_sistema_bancario.infra.request.DepositoRequest;
+    import br.com.cesurgmarau.projeto_sistema_bancario.infra.request.TransferenciaRequest;
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.http.HttpStatus;
     import org.springframework.http.ResponseEntity;
@@ -75,5 +76,20 @@
                         .status(HttpStatus.BAD_REQUEST)
                         .body(erro);
             }
+        }
+
+        @PostMapping("/transferir")
+        public ResponseEntity<?> transferir(@RequestBody TransferenciaRequest request){
+            try{
+                contaUseCase.transferir(request.getContaOrigem(), request.getContaDestino(), request.getValorTransferencia());
+                return ResponseEntity.ok("Valor transferido");
+            } catch (Exception e) {
+                Error erro = new Error();
+                erro.setMessage(e.getMessage());
+                return ResponseEntity
+                        .status(HttpStatus.BAD_REQUEST)
+                        .body(erro);
+            }
+
         }
     }
