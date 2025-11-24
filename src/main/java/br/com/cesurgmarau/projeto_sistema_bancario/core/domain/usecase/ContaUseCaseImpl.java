@@ -76,5 +76,28 @@ public class ContaUseCaseImpl implements ContaUseCase {
         contaRepository.atualizarConta(conta.getIdConta(), conta);
     }
 
+    @Override
+    public void transferir(String contaOrigem, String contaDestino, int valorTransferencia) throws Exception {
+        Conta origem = contaRepository.buscarContaPorNumero(contaOrigem);
+        Conta destino = contaRepository.buscarContaPorNumero(contaDestino);
 
+        if(origem == null){
+            throw new Exception("conta de origem não encontrada");
+        }
+        if(destino == null){
+            throw new Exception("conta de destino não encontrada");
+        }
+        if(origem.getSaldoConta() < valorTransferencia){
+            throw new Exception("Não tem o valor suficiente");
+        }
+
+        int novoSaldoOrigem = origem.getSaldoConta() - valorTransferencia;
+        origem.setSaldoConta(novoSaldoOrigem);
+        int novoSaldoDestino = destino.getSaldoConta() + valorTransferencia;
+        destino.setSaldoConta(novoSaldoDestino);
+
+        contaRepository.atualizarConta(origem.getIdConta(), origem);
+        contaRepository.atualizarConta(destino.getIdConta(), destino);
+
+    }
 }

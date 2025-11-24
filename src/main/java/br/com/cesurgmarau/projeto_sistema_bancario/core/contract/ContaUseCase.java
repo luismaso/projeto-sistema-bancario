@@ -15,4 +15,6 @@ public interface ContaUseCase {
     void atualizarConta(Integer idConta, Conta novaConta);
 
     void depositar(String numeroConta, int valor) throws Exception;
+
+    void transferir(String contaOrigem, String contaDestino, int valorTransferencia) throws Exception;
 }
