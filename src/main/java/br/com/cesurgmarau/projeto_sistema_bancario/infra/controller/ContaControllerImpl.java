@@ -4,6 +4,7 @@
     import br.com.cesurgmarau.projeto_sistema_bancario.core.contract.ContaController;
     import br.com.cesurgmarau.projeto_sistema_bancario.core.contract.ContaUseCase;
     import br.com.cesurgmarau.projeto_sistema_bancario.core.domain.entity.Conta;
+    import br.com.cesurgmarau.projeto_sistema_bancario.infra.request.CompraCreditoRequest;
     import br.com.cesurgmarau.projeto_sistema_bancario.infra.request.ContaRequest;
     import br.com.cesurgmarau.projeto_sistema_bancario.infra.request.DepositoRequest;
     import br.com.cesurgmarau.projeto_sistema_bancario.infra.request.TransferenciaRequest;
@@ -98,6 +99,20 @@
             try{
                 contaUseCase.aplicarRendimento(numeroConta);
                 return ResponseEntity.ok("Rendimento aplicado");
+            } catch (Exception e) {
+                Error erro = new Error();
+                erro.setMessage(e.getMessage());
+                return ResponseEntity
+                        .status(HttpStatus.BAD_REQUEST)
+                        .body(erro);
+            }
+        }
+
+        @PostMapping("/credito/comprar")
+        public ResponseEntity<?> compraCredito(@RequestBody CompraCreditoRequest request){
+            try{
+                contaUseCase.compraCredito(request.getNumeroConta(), request.getValor());
+                return ResponseEntity.ok("Compra em crédito realizada");
             } catch (Exception e) {
                 Error erro = new Error();
                 erro.setMessage(e.getMessage());

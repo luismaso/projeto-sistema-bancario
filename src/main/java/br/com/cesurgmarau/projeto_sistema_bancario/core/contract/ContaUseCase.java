@@ -18,4 +18,6 @@ public interface ContaUseCase {
     void transferir(String contaOrigem, String contaDestino, int valorTransferencia) throws Exception;
 
     void aplicarRendimento(String numeroConta) throws Exception;
+
+    void compraCredito(String numeroConta, int valor) throws Exception;
 }

@@ -4,10 +4,7 @@ import br.com.cesurgmarau.projeto_sistema_bancario.core.contract.BancoRepository
 import br.com.cesurgmarau.projeto_sistema_bancario.core.contract.ContaRepository;
 import br.com.cesurgmarau.projeto_sistema_bancario.core.contract.ContaUseCase;
 import br.com.cesurgmarau.projeto_sistema_bancario.core.contract.UsuarioRepository;
-import br.com.cesurgmarau.projeto_sistema_bancario.core.domain.entity.Banco;
-import br.com.cesurgmarau.projeto_sistema_bancario.core.domain.entity.Conta;
-import br.com.cesurgmarau.projeto_sistema_bancario.core.domain.entity.ContaPoupanca;
-import br.com.cesurgmarau.projeto_sistema_bancario.core.domain.entity.Usuario;
+import br.com.cesurgmarau.projeto_sistema_bancario.core.domain.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +39,7 @@ public class ContaUseCaseImpl implements ContaUseCase {
         }else if(tipoC.equals("corrente")){
             novaConta = new Conta();
         }else if(tipoC.equals("crédito")){
-            novaConta = new Conta();
+            novaConta = new ContaCredito();
         }else{
             throw new Exception("Tipo de conta inválido");
         }
@@ -135,6 +132,30 @@ public class ContaUseCaseImpl implements ContaUseCase {
             throw new Exception("Rendimento só pode ser aplicado em Contas Poupanças");
         }
 
+    }
+
+    @Override
+    public void compraCredito(String numeroConta, int valor) throws Exception {
+        Conta conta = contaRepository.buscarContaPorNumero(numeroConta);
+
+        if(conta == null){
+            throw new Exception("Conta inválida");
+        }
+        if(!(conta instanceof ContaCredito)){
+            throw new Exception("Operacão livre somente para Conta de Crédito");
+        }
+
+        ContaCredito contaCredito = (ContaCredito) conta;
+
+        int novaDivida = contaCredito.getSaldoConta() - valor;
+
+        if (Math.abs(novaDivida) > contaCredito.getLimiteCredito()){
+            throw new Exception("Valor de limite excedido");
+        }
+
+
+        ((ContaCredito) conta).setLimiteCredito(valor - ((ContaCredito) conta).getLimiteCredito());
+        conta.setSaldoConta(novaDivida);
     }
 
 }

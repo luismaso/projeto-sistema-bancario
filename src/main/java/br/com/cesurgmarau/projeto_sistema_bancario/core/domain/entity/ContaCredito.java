@@ -1,7 +1,7 @@
 package br.com.cesurgmarau.projeto_sistema_bancario.core.domain.entity;
 
 public class ContaCredito extends Conta{
-    private int limiteCredito;
+    private int limiteCredito = 1000;
 
     public ContaCredito(){
         super();
