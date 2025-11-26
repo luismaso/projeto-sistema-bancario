@@ -11,6 +11,7 @@ public class Conta {
     private Usuario usuario;
 
     public Conta() {
+        this.setTipoConta("Corrente");
     }
 
     public String getTipoConta() {
@@ -21,10 +22,11 @@ public class Conta {
         this.tipoConta = tipoConta;
     }
 
-    public Conta(Integer idConta, int saldoConta, String numeroConta, Banco banco, Usuario usuario) {
+    public Conta(Integer idConta, int saldoConta, String numeroConta, String tipoConta, Banco banco, Usuario usuario) {
         this.idConta = idConta;
         this.saldoConta = saldoConta;
         this.numeroConta = numeroConta;
+        this.tipoConta = "Corrente";
         this.banco = banco;
         this.usuario = usuario;
     }
@@ -68,5 +70,6 @@ public class Conta {
     public void setNumeroConta(String numeroConta) {
         this.numeroConta = numeroConta;
     }
+
 
 }

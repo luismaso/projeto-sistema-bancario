@@ -1,12 +1,11 @@
 package br.com.cesurgmarau.projeto_sistema_bancario.core.contract;
 
 import br.com.cesurgmarau.projeto_sistema_bancario.core.domain.entity.Conta;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface ContaUseCase {
-    Conta criarConta(String numeroConta, int saldoInicial, String tipoConta, Integer agenciaBanco, String cpfUsuario) throws Exception;
+    Conta criarConta(String numeroConta, int saldoInicial, String tipoConta, Integer agenciaBanco, String cpfUsuario, Integer limiteCredito) throws Exception;
 
     void deletarConta(Integer IdConta);
 
@@ -17,4 +16,6 @@ public interface ContaUseCase {
     void depositar(String numeroConta, int valor) throws Exception;
 
     void transferir(String contaOrigem, String contaDestino, int valorTransferencia) throws Exception;
+
+    void aplicarRendimento(String numeroConta) throws Exception;
 }

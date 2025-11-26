@@ -6,9 +6,9 @@ import br.com.cesurgmarau.projeto_sistema_bancario.core.contract.ContaUseCase;
 import br.com.cesurgmarau.projeto_sistema_bancario.core.contract.UsuarioRepository;
 import br.com.cesurgmarau.projeto_sistema_bancario.core.domain.entity.Banco;
 import br.com.cesurgmarau.projeto_sistema_bancario.core.domain.entity.Conta;
+import br.com.cesurgmarau.projeto_sistema_bancario.core.domain.entity.ContaPoupanca;
 import br.com.cesurgmarau.projeto_sistema_bancario.core.domain.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,10 +28,25 @@ public class ContaUseCaseImpl implements ContaUseCase {
 
 
     @Override
-    public Conta criarConta(String numeroConta, int saldoInicial, String tipoConta, Integer agenciaBanco, String cpfUsuario) throws Exception {
+    public Conta criarConta(String numeroConta, int saldoInicial, String tipoConta, Integer agenciaBanco, String cpfUsuario, Integer limiteCredito) throws Exception {
         Banco banco = bancoRepository.buscarBancoPorAgencia(agenciaBanco);
         Usuario usuario = usuarioRepository.buscarUsuarioPorCpf(cpfUsuario);
-        Conta novaConta = new Conta();
+        if(usuario == null){
+            throw new Exception("CPF inválido");
+        }
+        Conta novaConta;
+        String tipoC = tipoConta.toLowerCase();
+
+        if(tipoC.equalsIgnoreCase("poupança")){
+            novaConta = new ContaPoupanca();
+        }else if(tipoC.equals("corrente")){
+            novaConta = new Conta();
+        }else if(tipoC.equals("crédito")){
+            novaConta = new Conta();
+        }else{
+            throw new Exception("Tipo de conta inválido");
+        }
+
         novaConta.setNumeroConta(numeroConta);
         novaConta.setSaldoConta(saldoInicial);
         novaConta.setTipoConta(tipoConta);
@@ -100,4 +115,26 @@ public class ContaUseCaseImpl implements ContaUseCase {
         contaRepository.atualizarConta(destino.getIdConta(), destino);
 
     }
+
+    @Override
+    public void aplicarRendimento (String numeroConta) throws Exception{
+        Conta conta = contaRepository.buscarContaPorNumero(numeroConta);
+
+        if(conta == null){
+            throw new Exception("Conta inválida");
+        }
+
+        if (conta instanceof ContaPoupanca) {
+
+            ContaPoupanca poupanca = (ContaPoupanca) conta;
+
+            poupanca.aplicarRendimento();
+            contaRepository.atualizarConta(poupanca.getIdConta(), poupanca);
+
+        } else {
+            throw new Exception("Rendimento só pode ser aplicado em Contas Poupanças");
+        }
+
+    }
+
 }

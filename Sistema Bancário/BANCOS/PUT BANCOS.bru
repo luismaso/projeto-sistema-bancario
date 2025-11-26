@@ -1,0 +1,22 @@
+meta {
+  name: PUT BANCOS
+  type: http
+  seq: 3
+}
+
+put {
+  url: http://localhost:8080/banco/1
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "nomeAgencia": "Sedi"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

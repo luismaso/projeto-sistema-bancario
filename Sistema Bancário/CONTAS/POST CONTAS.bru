@@ -1,0 +1,26 @@
+meta {
+  name: POST CONTAS
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8080/contas
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "numeroConta": "6",
+      "saldoInicial": 500,
+      "tipoConta": "Crédito",
+      "agenciaBanco": 1001, 
+      "cpfUsuario": "05266511021" 
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

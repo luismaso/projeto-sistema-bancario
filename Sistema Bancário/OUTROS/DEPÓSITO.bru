@@ -1,0 +1,23 @@
+meta {
+  name: DEPÓSITO
+  type: http
+  seq: 14
+}
+
+post {
+  url: http://localhost:8080/contas/depositar
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "numeroConta": "1",
+    "valor": 100
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

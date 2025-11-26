@@ -31,8 +31,8 @@
                         request.getSaldoInicial(),
                         request.getTipoConta(),
                         request.getAgenciaBanco(),
-                        request.getCpfUsuario()
-
+                        request.getCpfUsuario(),
+                        request.getLimiteCredito()
                 );
                 return ResponseEntity
                         .status(HttpStatus.CREATED)
@@ -91,5 +91,19 @@
                         .body(erro);
             }
 
+        }
+
+        @PostMapping("/rendimento/{numeroConta}")
+        public ResponseEntity<?> aplicarRendimento(@PathVariable String numeroConta){
+            try{
+                contaUseCase.aplicarRendimento(numeroConta);
+                return ResponseEntity.ok("Rendimento aplicado");
+            } catch (Exception e) {
+                Error erro = new Error();
+                erro.setMessage(e.getMessage());
+                return ResponseEntity
+                        .status(HttpStatus.BAD_REQUEST)
+                        .body(erro);
+            }
         }
     }

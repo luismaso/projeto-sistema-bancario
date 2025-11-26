@@ -6,6 +6,7 @@ public class ContaRequest {
     private Integer agenciaBanco;
     private String cpfUsuario;
     private String tipoConta;
+    private Integer limiteCredito;
 
     public ContaRequest() {
     }
@@ -56,5 +57,13 @@ public class ContaRequest {
 
     public void setCpfUsuario(String cpfUsuario) {
         this.cpfUsuario = cpfUsuario;
+    }
+
+    public Integer getLimiteCredito() {
+        return limiteCredito;
+    }
+
+    public void setLimiteCredito(Integer limiteCredito) {
+        this.limiteCredito = limiteCredito;
     }
 }
