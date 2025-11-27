@@ -114,18 +114,20 @@ public class ContaUseCaseImpl implements ContaUseCase {
     }
 
     @Override
-    public void aplicarRendimento (String numeroConta) throws Exception{
+    public void aplicarRendimento (String numeroConta) throws Exception {
         Conta conta = contaRepository.buscarContaPorNumero(numeroConta);
+        ContaPoupanca poupanca = (ContaPoupanca) conta;
 
-        if(conta == null){
+        if (conta == null) {
             throw new Exception("Conta inválida");
         }
-
+        if (poupanca.isRendimentoAplicado()) {
+            throw new Exception("Rendimento já foi aplicado");
+        }
         if (conta instanceof ContaPoupanca) {
-
-            ContaPoupanca poupanca = (ContaPoupanca) conta;
-
             poupanca.aplicarRendimento();
+            contaRepository.atualizarConta(poupanca.getIdConta(), poupanca);
+            poupanca.setRendimentoAplicado(true);
             contaRepository.atualizarConta(poupanca.getIdConta(), poupanca);
 
         } else {
