@@ -1,2 +1,103 @@
-# projeto-sistema-bancario
-Projeto de faculdade que simula um sistema bancário com usuários, contas, saldos, transferências e compras no crédito.
+# API de Sistema Bancário – JAVA (Arquitetura Limpa / Abstração)
+
+Esta é uma **API bancária desenvolvida em Java**, utilizando princípios de **abstração**, **DTOs** e uma arquitetura organizada em **Controller**, **Use Case**, **Repository** e **Entity**.
+Os testes foram realizados com o cliente de exemplo **UseBruno**.
+
+A API utiliza um **banco de dados em memória**, permitindo testes rápidos, execução simples e fácil manutenção durante o desenvolvimento.
+
+---
+
+## 🧱 Arquitetura Utilizada
+
+A API segue uma estrutura inspirada na Clean Architecture:
+
+* **Entity** – Entidades principais do domínio (Banco, Usuário, Conta).
+* **Repository** – Interfaces e implementações de persistência com **armazenamento em memória**.
+* **Use Case** – Regras de negócio e fluxo central da aplicação.
+* **Controller** – Pontos de entrada da API, onde chegam as requisições.
+* **DTO (Data Transfer Object)** – Objetos usados para envio e recebimento de dados entre camadas.
+
+---
+
+## 📦 Funcionalidades
+
+### ✔ CRUD de Banco
+
+Armazena:
+
+* Número da agência
+* Nome da agência
+
+### ✔ CRUD de Usuário
+
+Armazena:
+
+* idUsuario
+* Nome
+* Sobrenome
+* CPF
+
+### ✔ CRUD de Conta
+
+Recebe dados completos de Banco e Usuário.
+Armazena:
+
+* idConta
+* saldoConta
+* numeroConta
+* tipoConta
+
+  * **Poupança**
+  * **Crédito**
+  * **Corrente**
+
+---
+
+## 🏦 Tipos de Conta e Regras
+
+### 💳 Conta de Crédito
+
+* Possui **limite para compras**
+
+### 🏦 Conta Poupança
+
+* Permite **aplicação de rendimento percentual** sobre o saldo
+
+### 💼 Todas as Contas
+
+* Depósitos
+* Transferências entre contas
+
+---
+
+## ❗ Tratamento de Erros
+
+A API possui **tratamento de erros bem definido**, garantindo respostas claras para o cliente.
+
+---
+
+## 🧪 Testes com UseBruno
+
+O projeto foi testado utilizando o cliente **UseBruno**, que simula requisições reais para os endpoints da API.
+
+---
+
+## 🗄 Banco de Dados em Memória
+
+A persistência é feita utilizando **estruturas de dados locais (listas, maps, etc.)**, eliminando a necessidade de um banco de dados externo. Ideal para:
+
+* Protótipos
+* Demonstrações
+* Projetos acadêmicos
+* Testes rápidos
+
+---
+
+## 🚀 Objetivo da API
+
+* Aplicar **abstração** em Java
+* Demonstrar arquitetura organizada em camadas
+* Simular um sistema bancário completo
+* Usar persistência **em memória**
+* Fornecer tratamento de erros **claro e especificado**
+* Facilitar estudos e testes com uma API funcional
