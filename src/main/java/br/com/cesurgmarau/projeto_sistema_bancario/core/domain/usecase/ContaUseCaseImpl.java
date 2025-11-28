@@ -102,6 +102,9 @@ public class ContaUseCaseImpl implements ContaUseCase {
         if(origem.getSaldoConta() < valorTransferencia){
             throw new Exception("Não tem o valor suficiente");
         }
+        if(valorTransferencia<1){
+            throw new Exception("Valor de transferência tem que ser positivo");
+        }
 
         int novoSaldoOrigem = origem.getSaldoConta() - valorTransferencia;
         origem.setSaldoConta(novoSaldoOrigem);
