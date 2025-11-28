@@ -1,6 +1,7 @@
 package br.com.cesurgmarau.projeto_sistema_bancario.infra.repository;
 
 import br.com.cesurgmarau.projeto_sistema_bancario.core.contract.ContaRepository;
+import br.com.cesurgmarau.projeto_sistema_bancario.core.domain.entity.Banco;
 import br.com.cesurgmarau.projeto_sistema_bancario.core.domain.entity.Conta;
 import br.com.cesurgmarau.projeto_sistema_bancario.core.domain.model.Error;
 import org.springframework.http.ResponseEntity;
@@ -17,23 +18,29 @@ public class ContaRepositoryImpl implements ContaRepository {
     private final List<Conta> contas = new ArrayList<>();
     private int contadorId = 1;
 
-
     @Override
     public void criarConta(Conta conta) throws Exception {
         boolean NumeroContaExiste = false;
+        boolean NumeroAgenciaExiste = false;
 
-        for (int i = 0; i < contas.size(); i++) {
+        if(conta.getBanco()==null){
+            throw new Exception("Banco não existe");
+        }
+
+        for(int i = 0; i < contas.size(); i++) {
             if (conta.getNumeroConta().equals(contas.get(i).getNumeroConta())) {
                 NumeroContaExiste = !NumeroContaExiste;
             }
         }
         if (NumeroContaExiste) {
             throw new Exception("Número de conta já existe");
-        } else {
+        }
+        else {
             conta.setIdConta(contadorId++);
             contas.add(conta);
         }
     }
+
 
     @Override
     public void deletarConta(Integer idConta) {
