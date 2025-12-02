@@ -1,4 +1,4 @@
-# API de Sistema Bancário – JAVA (Arquitetura Limpa / Abstração)
+# API de Sistema Bancário – JAVA 
 
 Esta é uma **API bancária desenvolvida em Java**, utilizando princípios de **abstração**, **DTOs** e uma arquitetura organizada em **Controller**, **Use Case**, **Repository** e **Entity**.
 Os testes foram realizados com o cliente de exemplo **UseBruno**.
@@ -101,3 +101,71 @@ A persistência é feita utilizando **estruturas de dados locais (listas, maps, 
 * Usar persistência **em memória**
 * Fornecer tratamento de erros **claro e especificado**
 * Facilitar estudos e testes com uma API funcional
+
+
+
+## 💳 JSON - CRIAR CONTAS 
+## END POINT (http://localhost:8080/contas)
+```json
+{
+    "numeroConta": "1",
+    "saldoInicial": 550,
+    "tipoConta": "Poupança",
+    "agenciaBanco": 1001, 
+    "cpfUsuario": "05266511024" 
+}
+```
+
+
+## 👤 JSON - CRIAR USUÁRIO
+## END POINT (http://localhost:8080/usuarios)
+```json
+{
+  "nome": "Luis",
+  "sobrenome": "Maso",
+  "cpf": "05266511024"
+}
+```
+
+## 🏦 JSON - CRIAR BANCO
+## END POINT (http://localhost:8080/banco)
+```json
+{
+    "agencia": 1001,
+    "nomeAgencia": "Agencia Central"
+}
+```
+
+
+## 🛍️ JSON - COMPRA (CRÉDITO)
+## END POINT (http://localhost:8080/contas/credito/comprar)
+```json
+{
+  "numeroConta": "1",
+  "valor": "1500"
+}
+```
+
+## 💵 JSON - DEPÓSITO
+## END POINT (http://localhost:8080/contas/depositar)
+```json
+{
+  "numeroConta": "1",
+  "valor": 4000
+}
+```
+
+## 🔁 JSON - TRANSFERIR
+## END POINT (http://localhost:8080/contas/transferir)
+```json
+{
+  "contaOrigem": "1",
+  "contaDestino": "2",
+  "valorTransferencia": 13
+}
+```
+
+
+
+
+ 
