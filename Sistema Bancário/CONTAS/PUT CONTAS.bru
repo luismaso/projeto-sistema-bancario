@@ -1,0 +1,25 @@
+meta {
+  name: PUT CONTAS
+  type: http
+  seq: 3
+}
+
+put {
+  url: http://localhost:8080/contas/1
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "numeroConta": "98765-X",
+      "saldoInicial": 500,
+      "agenciaBanco": 1001, 
+      "cpfUsuario": "123.456.789-00" 
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
